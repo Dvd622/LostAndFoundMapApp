@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Everything/AAA Stuff/Uni Stuff/2022/Sem1/SIT305 Mobile Application Development/Tasks/7.1P Lost and Found APP/LostAndFoundApp/app/src/main/res/layout/activity_item.xml" value="0.38269927536231885" />
+        <entry key="..\:/Everything/AAA Stuff/Uni Stuff/2022/Sem1/SIT305 Mobile Application Development/Tasks/7.1P Lost and Found APP/LostAndFoundApp/app/src/main/res/layout/activity_lost_and_found_items.xml" value="0.3378623188405797" />
+        <entry key="..\:/Everything/AAA Stuff/Uni Stuff/2022/Sem1/SIT305 Mobile Application Development/Tasks/7.1P Lost and Found APP/LostAndFoundApp/app/src/main/res/layout/activity_main.xml" value="0.3378623188405797" />
+        <entry key="..\:/Everything/AAA Stuff/Uni Stuff/2022/Sem1/SIT305 Mobile Application Development/Tasks/7.1P Lost and Found APP/LostAndFoundApp/app/src/main/res/layout/activity_new_advert.xml" value="0.3378623188405797" />
+        <entry key="..\:/Everything/AAA Stuff/Uni Stuff/2022/Sem1/SIT305 Mobile Application Development/Tasks/9.1P Lost and Found Map APP/LostAndFoundMapApp/app/src/main/res/layout/activity_new_advert.xml" value="0.3378623188405797" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
