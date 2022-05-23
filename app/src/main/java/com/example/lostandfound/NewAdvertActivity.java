@@ -46,6 +46,7 @@ public class NewAdvertActivity extends AppCompatActivity {
     EditText newDateEditText;
     Button newGetCurrentLocationButton;
     Button newSaveButton;
+    String placeName, placeID;
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -92,6 +93,8 @@ public class NewAdvertActivity extends AppCompatActivity {
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                placeName = place.getName();
+                placeID = place.getId();
             }
 
 
