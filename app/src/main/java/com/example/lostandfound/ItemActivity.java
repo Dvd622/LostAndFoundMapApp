@@ -33,7 +33,9 @@ public class ItemActivity extends AppCompatActivity {
         String name = intentReceive.getStringExtra("name");
         String description = "Description \n" + intentReceive.getStringExtra("description");
         String date = "Date \n" + intentReceive.getStringExtra("date");
-        String location = "Location \n" + intentReceive.getStringExtra("location");
+        String location = "Location \n" + intentReceive.getStringExtra("locationName");
+        String locationLat = intentReceive.getStringExtra("locationLat");
+        String locationLng = intentReceive.getStringExtra("locationLng");
         String phone = "Phone \n" + intentReceive.getStringExtra("phone");
         String id = intentReceive.getStringExtra("id");
 
@@ -45,7 +47,7 @@ public class ItemActivity extends AppCompatActivity {
 
         removeItemButton.setOnClickListener(view -> {
             DatabaseHelper db = new DatabaseHelper(this);
-            Item item = new Item(name, phone, description, date, location);
+            Item item = new Item(name, phone, description, date, location, locationLat, locationLng);
             item.setItemId(Integer.parseInt(id));
             db.deleteItem(item);
             Toast.makeText(this, "Item removed", Toast.LENGTH_SHORT).show();

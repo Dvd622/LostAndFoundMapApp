@@ -6,14 +6,18 @@ public class Item {
     String phone;
     String description;
     String date;
-    String location;
+    String locationName;
+    String locationLat;
+    String locationLng;
 
-    public Item(String name, String phone, String description, String date, String location) {
+    public Item(String name, String phone, String description, String date, String locationName, String locationLat, String locationLng) {
         this.name = name;
         this.phone = phone;
         this.description = description;
         this.date = date;
-        this.location = location;
+        this.locationName = locationName;
+        this.locationLat = locationLat;
+        this.locationLng = locationLng;
     }
 
     public int getItemId() {
@@ -56,11 +60,23 @@ public class Item {
         this.date = date;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocationName() {
+        return locationName;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
+
+    public String getLocationLat() {
+        return locationLat;
+    }
+
+    public void setLocationLat(String locationLat) { this.locationLat = locationLat; }
+
+    public String getLocationLng() {
+        return locationLng;
+    }
+
+    public void setLocationLng(String locationLng) { this.locationLng = locationLng; }
 }

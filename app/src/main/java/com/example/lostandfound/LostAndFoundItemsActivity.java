@@ -47,7 +47,9 @@ public class LostAndFoundItemsActivity extends AppCompatActivity {
                 intent.putExtra("phone", itemList.get(i).getPhone());
                 intent.putExtra("description", itemList.get(i).getDescription());
                 intent.putExtra("date", itemList.get(i).getDate());
-                intent.putExtra("location", itemList.get(i).getLocation());
+                intent.putExtra("locationName", itemList.get(i).getLocationName());
+                intent.putExtra("locationLat", itemList.get(i).getLocationLat());
+                intent.putExtra("locationLng", itemList.get(i).getLocationLng());
                 intent.putExtra("id", Integer.toString(itemList.get(i).getItemId()));
                 startActivityForResult(intent, 1);
             }

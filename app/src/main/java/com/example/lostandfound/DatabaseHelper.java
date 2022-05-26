@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_ITEM_TABLE = "CREATE TABLE ITEMS (ITEMID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHONE TEXT, DESCRIPTION TEXT, DATE TEXT, LOCATION TEXT)";
+        String CREATE_ITEM_TABLE = "CREATE TABLE ITEMS (ITEMID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, PHONE TEXT, DESCRIPTION TEXT, DATE TEXT, LOCATION_NAME TEXT, LOCATION_LAT TEXT, LOCATION_LNG TEXT)";
         sqLiteDatabase.execSQL(CREATE_ITEM_TABLE);
     }
 
@@ -39,7 +39,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("PHONE", item.getPhone());
         contentValues.put("DESCRIPTION", item.getDescription());
         contentValues.put("DATE", item.getDate());
-        contentValues.put("LOCATION", item.getLocation());
+        contentValues.put("LOCATION_NAME", item.getLocationName());
+        contentValues.put("LOCATION_LAT", item.getLocationLat());
+        contentValues.put("LOCATION_LNG", item.getLocationLng());
         long row = db.insert("ITEMS", null, contentValues);
         db.close();
         return row;
@@ -59,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Item user = new Item(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+                Item user = new Item(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7));
                 user.setItemId(cursor.getInt(0));
                 itemList.add(user);
                 cursor.moveToNext();

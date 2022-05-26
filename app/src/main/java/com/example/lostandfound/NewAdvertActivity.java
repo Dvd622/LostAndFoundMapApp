@@ -46,7 +46,7 @@ public class NewAdvertActivity extends AppCompatActivity {
     EditText newDateEditText;
     Button newGetCurrentLocationButton;
     Button newSaveButton;
-    String placeName, placeID;
+    String placeName, placeLat, placeLng;
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -72,7 +72,7 @@ public class NewAdvertActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(NewAdvertActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
 
-        String API_KEY = BuildConfig.API_KEY;
+        String API_KEY = BuildConfig.MAPS_API_KEY;
         // Initialize the SDK
         Places.initialize(getApplicationContext(), API_KEY);
 
@@ -85,30 +85,28 @@ public class NewAdvertActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
-                // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
                 placeName = place.getName();
-                placeID = place.getId();
+                placeLat = Double.toString(place.getLatLng().latitude);
+                placeLng = Double.toString(place.getLatLng().longitude);
             }
-
 
             @Override
             public void onError(@NonNull Status status) {
-                // TODO: Handle the error.
+                // Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
 
-
         newGetCurrentLocationButton.setOnClickListener(view -> {
             // Use fields to define the data types to return.
-            List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
+            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.LAT_LNG);
 
             // Use the builder to create a FindCurrentPlaceRequest.
             FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
@@ -119,6 +117,11 @@ public class NewAdvertActivity extends AppCompatActivity {
                 placeResponse.addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         FindCurrentPlaceResponse response = task.getResult();
+                        placeName = response.getPlaceLikelihoods().get(0).getPlace().getName();
+                        placeLat = Double.toString(response.getPlaceLikelihoods().get(0).getPlace().getLatLng().latitude);
+                        placeLng = Double.toString(response.getPlaceLikelihoods().get(0).getPlace().getLatLng().longitude);
+                        autocompleteFragment.setText(placeName);
+
                         for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
                             Log.i(TAG, String.format("Place '%s' has likelihood: %f",
                                     placeLikelihood.getPlace().getName(),
@@ -150,10 +153,8 @@ public class NewAdvertActivity extends AppCompatActivity {
             String phone = newPhoneEditText.getText().toString();
             String description = newDescriptionEditText.getText().toString();
             String date = newDateEditText.getText().toString();
-            String location = autocompleteFragment.toString();
 
-
-            if (name.equals("") || phone.equals("") || description.equals("") || date.equals("") || location.equals("")) { // check for empty fields
+            if (name.equals("") || phone.equals("") || description.equals("") || date.equals("") || placeName == null || placeLat == null || placeLng == null) { // check for empty fields
                 Toast.makeText(this, "Please fill in all the details", Toast.LENGTH_SHORT).show();
             } else if (selectedId == -1) { // check if radio button selected
                 Toast.makeText(this, "Please select post type", Toast.LENGTH_SHORT).show();
@@ -161,7 +162,7 @@ public class NewAdvertActivity extends AppCompatActivity {
                 selectedRadioButton = findViewById(selectedId);
                 name = selectedRadioButton.getText().toString() + " " + name;
 
-                Item item = new Item(name, phone, description, date, location);
+                Item item = new Item(name, phone, description, date, placeName, placeLat, placeLng);
                 db.insertItem(item);
                 Toast.makeText(this, "Item added", Toast.LENGTH_SHORT).show();
 
